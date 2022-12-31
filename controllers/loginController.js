@@ -1,6 +1,7 @@
 //js
 const User = require('../models/User');
 const bcrypt = require("bcryptjs");
+const passport = require('passport');
 
 //For Register Page
 const registerView = (req, res) => {
@@ -58,8 +59,33 @@ const registerUser = (req, res) => {
     }
   };
 
+  function next() {
+    console.log(arguments)
+  }
+
+  const loginUser = (req, res) => {
+    const { email, password } = req.body;
+    //Required
+    if (!email || !password) {
+      console.log("Please fill in all the fields");
+      res.render("login", {
+        email,
+        password,
+      });
+    } else {
+      passport.authenticate(
+        "local", {
+                    successRedirect: "/dashboard",
+                    failureRedirect: "/login",
+                    failureFlash: true,
+                  }
+      )(req, res, next);
+    }
+  };
+
   module.exports =  {
     registerView,
     loginView,
-    registerUser
+    registerUser,
+    loginUser
 };
