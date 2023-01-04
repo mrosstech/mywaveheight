@@ -7,6 +7,7 @@ const passport = require('passport');
 const {loginCheck} = require('./auth/passport');
 loginCheck(passport);
 dotenv.config();
+const csrf = require('csurf')
 
 const app = express();
 const PORT = process.env.PORT || 3000;
