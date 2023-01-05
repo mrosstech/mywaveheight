@@ -6,5 +6,4 @@
     docker pull mongo
     ./initdb.sh
     npm install 
-    npm build
-    node app.js
+    npm run develop
